@@ -18,7 +18,13 @@
     "start:client": "dotenv -- bash -c 'yarn workspace client dev -- --port $FRONT_PORT'",
     "start:server": "dotenv -- bash -c 'cross-env PORT=$BACK_PORT yarn workspace server dev'",
     "validate:client": "yarn workspace client validate",
+    "lint:client:fix": "yarn workspace client lint:fix",
+    "check:client:types": "yarn workspace client check:types",
+    "lint:server:fix": "yarn workspace server lint:fix",
+    "check:server:types": "yarn workspace server check:types",
     "validate:server": "yarn workspace server validate",
-    "start": "run-p start:server start:client"
+    "start": "run-p start:server start:client",
+    "lint:fix": "yarn lint:client:fix && yarn lint:server:fix",
+    "check:types": "yarn check:client:types && yarn check:server:types"
   }
 }

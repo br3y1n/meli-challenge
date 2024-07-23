@@ -9,7 +9,11 @@ const startServer = () => {
 
   // defineRoutes(app);
 
-  app.listen(port, () => console.log("Port server:", port));
+  const server = app.listen(port, () => console.log("Port server:", port));
+
+  return { app, server };
 };
 
-startServer();
+const { app, server } = startServer();
+
+export { app, server };
