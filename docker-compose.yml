@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  backend:
+    build:
+      context: ./packages/server
+      dockerfile: Dockerfile
+    env_file: .env
+    ports:
+      - $BACK_PORT:$BACK_PORT
+    environment:
+      - PORT=$BACK_PORT
+  frontend:
+    build:
+      context: ./packages/client
+      dockerfile: Dockerfile
+    env_file: .env
+    ports:
+      - $FRONT_PORT:$FRONT_PORT
+    environment:
+      - PORT=$FRONT_PORT

@@ -1,0 +1,24 @@
+{
+  "name": "meli-challenge",
+  "version": "1.0.0",
+  "private": true,
+  "license": "ISC",
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "dotenv-cli": "^7.4.2",
+    "husky": "^9.1.1",
+    "npm-run-all": "^4.1.5"
+  },
+  "scripts": {
+    "prepare": "husky",
+    "validate": "yarn validate:client && yarn validate:server",
+    "start:client": "dotenv -- bash -c 'yarn workspace client dev -- --port $FRONT_PORT'",
+    "start:server": "dotenv -- bash -c 'cross-env PORT=$BACK_PORT yarn workspace server dev'",
+    "validate:client": "yarn workspace client validate",
+    "validate:server": "yarn workspace server validate",
+    "start": "run-p start:server start:client"
+  }
+}
