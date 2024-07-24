@@ -1,4 +1,11 @@
 import {
+  Pagination,
+  PaginationLimitVO,
+  PaginationMaxItemsVO,
+  PaginationOffsetVO,
+  PaginationTotalVO,
+} from "@/shared/domain";
+import {
   IProductRepository,
   Price,
   PriceAmountVO,
@@ -12,6 +19,7 @@ import {
   ProductIdVO,
   ProductPictureVO,
   ProductPriceVO,
+  ProductsFilters,
   ProductSoldQuantityVO,
   ProductTitleVO,
 } from "../domain";
@@ -71,21 +79,28 @@ class InMemoryProductRepository implements IProductRepository {
     ),
   ];
 
-  public async getAllByTitle(title: ProductTitleVO) {
-    return this.products.filter((product) =>
-      product
-        .getTitle()
-        .getValue()
-        .toLowerCase()
-        .includes(title.getValue().toLowerCase())
-    );
+  public async getAll(filters: ProductsFilters) {
+    return {
+      pagination: new Pagination(
+        new PaginationMaxItemsVO(1000),
+        new PaginationLimitVO(parseInt(filters.limit)),
+        new PaginationOffsetVO(parseInt(filters.offset)),
+        new PaginationTotalVO(this.products.length)
+      ),
+      products: this.products.filter((product) =>
+        product
+          .getTitle()
+          .getValue()
+          .toLowerCase()
+          .includes(filters.query.toLowerCase())
+      ),
+    };
   }
 
-  public async getOneById(id: ProductIdVO) {
+  public async getOneById(id: string) {
     const product =
-      this.products.find(
-        (product) => product.getId().getValue() === id.getValue()
-      ) ?? null;
+      this.products.find((product) => product.getId().getValue() === id) ??
+      null;
 
     return product;
   }

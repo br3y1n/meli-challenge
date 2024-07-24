@@ -1,7 +1,4 @@
-import {
-  ProductGetAllByTitle,
-  ProductGetOneById,
-} from "@modules/product/application";
+import { ProductGetAll, ProductGetOneById } from "@modules/product/application";
 // import { InMemoryProductRepository } from "@modules/product/infrastructure/InMemoryProductRepository";
 import { MeliApiProductRepository } from "@modules/product/infrastructure/MeliApiProductRepository";
 
@@ -10,7 +7,7 @@ const productRepository = new MeliApiProductRepository();
 
 const ServiceContainer = {
   product: {
-    getAllByTitle: new ProductGetAllByTitle(productRepository),
+    getAll: new ProductGetAll(productRepository),
     getOneById: new ProductGetOneById(productRepository),
   },
 };

@@ -1,12 +1,11 @@
-import { IProductRepository, Product } from "@modules/product/domain";
-import { ProductTitleVO } from "@modules/product/domain/ProductTitleVO";
+import { IProductRepository, ProductsFilters } from "@modules/product/domain";
 
-class ProductGetAllByTitle {
+class ProductGetAll {
   constructor(private _repository: IProductRepository) {}
 
-  async run(title: string): Promise<Product[]> {
-    return await this._repository.getAllByTitle(new ProductTitleVO(title));
+  async run(filters: ProductsFilters) {
+    return await this._repository.getAll(filters);
   }
 }
 
-export { ProductGetAllByTitle };
+export { ProductGetAll };

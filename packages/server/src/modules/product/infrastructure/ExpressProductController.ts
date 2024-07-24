@@ -1,5 +1,7 @@
 import { ServiceContainer } from "@/shared/infrastructure/ServiceContainer";
+import { logger } from "@/shared/infrastructure/WinstonLogger";
 import { Request, Response } from "express";
+import { ProductsFilters } from "../domain";
 
 interface IAuthor {
   name: string;
@@ -19,10 +21,18 @@ interface IItem {
   free_shipping: boolean;
 }
 
+interface Pagination {
+  offset: number;
+  total: number;
+  max_items: number;
+  limit: number;
+}
+
 interface IAllProductsResponse {
   author: IAuthor;
   categories: string[];
   items: IItem[];
+  pagination: Pagination;
 }
 
 interface IProductResponse {
@@ -35,16 +45,29 @@ class ExpressProductController {
     name: "Brayan",
     lastname: "Arango",
   };
+  private readonly _defaultFilters: ProductsFilters = {
+    limit: "4",
+    offset: "0",
+    query: "",
+  };
 
   constructor() {
-    this.getAllByTitle = this.getAllByTitle.bind(this);
+    logger.info("ExpressProductController init");
+    this.getAll = this.getAll.bind(this);
     this.getOneById = this.getOneById.bind(this);
   }
 
-  public async getAllByTitle(req: Request, res: Response) {
-    const products = await ServiceContainer.product.getAllByTitle.run(
-      (req.query.q as string) ?? ""
-    );
+  public async getAll(req: Request, res: Response) {
+    logger.info({
+      message: "ExpressProductController - getAll - queryParams",
+      data: req.query,
+    });
+
+    const { products, pagination } = await ServiceContainer.product.getAll.run({
+      limit: (req.query.limit as string) ?? this._defaultFilters.limit,
+      offset: (req.query.offset as string) ?? this._defaultFilters.offset,
+      query: (req.query.q as string) ?? this._defaultFilters.query,
+    });
 
     const { items, categories } = products.reduce(
       (acc, product) => {
@@ -76,12 +99,23 @@ class ExpressProductController {
       author: this._author,
       categories: Object.keys(categories),
       items,
+      pagination: {
+        limit: pagination.getLimit().getValue(),
+        max_items: pagination.getMaxItems().getValue(),
+        offset: pagination.getOffset().getValue(),
+        total: pagination.getTotal().getValue(),
+      },
     };
 
     return res.json(response).status(200);
   }
 
   public async getOneById(req: Request, res: Response) {
+    logger.info({
+      message: "ExpressProductController - getOneById - params",
+      data: req.params,
+    });
+
     try {
       const product = await ServiceContainer.product.getOneById.run(
         req.params.id

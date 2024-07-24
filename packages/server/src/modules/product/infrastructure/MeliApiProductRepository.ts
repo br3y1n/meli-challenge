@@ -1,4 +1,12 @@
+import {
+  Pagination,
+  PaginationLimitVO,
+  PaginationMaxItemsVO,
+  PaginationOffsetVO,
+  PaginationTotalVO,
+} from "@/shared/domain";
 import { axiosClient } from "@/shared/infrastructure/AxiosClient";
+import { logger } from "@/shared/infrastructure/WinstonLogger";
 import {
   IProductRepository,
   Price,
@@ -13,6 +21,7 @@ import {
   ProductIdVO,
   ProductPictureVO,
   ProductPriceVO,
+  ProductsFilters,
   ProductSoldQuantityVO,
   ProductTitleVO,
 } from "../domain";
@@ -70,13 +79,33 @@ const extractValues = (num: number) =>
     .map((value) => parseInt(value)) as [number, number];
 
 class MeliApiProductRepository implements IProductRepository {
-  public async getAllByTitle(title: ProductTitleVO) {
-    const { data: searchResponse } =
-      await axiosClient.get<MeliApiSerchResponse>(
-        `sites/MLA/search?q=${title.getValue()}`
-      );
+  constructor() {
+    logger.info("MeliApiProductRepository init");
+  }
 
-    return searchResponse.results.map<Product>(
+  public async getAll(filters: ProductsFilters) {
+    logger.info({
+      message: "MeliApiProductRepository - getAll - args",
+      data: { filters },
+    });
+
+    const { query, ...otherFilters } = filters;
+
+    const params = new URLSearchParams({
+      q: query,
+      ...otherFilters,
+    }).toString();
+
+    const {
+      data: {
+        results,
+        paging: { limit, offset, primary_results, total },
+      },
+    } = await axiosClient.get<MeliApiSerchResponse>(
+      `sites/MLA/search?${params}`
+    );
+
+    const products = results.map<Product>(
       ({
         id,
         thumbnail,
@@ -108,9 +137,26 @@ class MeliApiProductRepository implements IProductRepository {
         );
       }
     );
+
+    const pagination: Pagination = new Pagination(
+      new PaginationMaxItemsVO(primary_results),
+      new PaginationLimitVO(limit),
+      new PaginationOffsetVO(offset),
+      new PaginationTotalVO(total)
+    );
+
+    return {
+      pagination,
+      products,
+    };
   }
 
-  public async getOneById(id: ProductIdVO) {
+  public async getOneById(id: string) {
+    logger.info({
+      message: "MeliApiProductRepository - getOneById - args",
+      data: { id },
+    });
+
     const {
       data: {
         id: productId,
@@ -124,12 +170,12 @@ class MeliApiProductRepository implements IProductRepository {
         sold_quantity,
         category_id,
       },
-    } = await axiosClient.get<MeliApiItemResponse>(`/items/${id.getValue()}`);
+    } = await axiosClient.get<MeliApiItemResponse>(`/items/${id}`);
 
     const {
       data: { text, plain_text },
     } = await axiosClient.get<MeliApiDescriptionResponse>(
-      `/items/${id.getValue()}/description`
+      `/items/${id}/description`
     );
 
     const [amount, decimals] = extractValues(price);

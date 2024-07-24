@@ -1,10 +1,17 @@
+import { Pagination } from "@/shared/domain";
 import { Product } from "./ProductEntity";
-import { ProductIdVO } from "./ProductIdVO";
-import { ProductTitleVO } from "./ProductTitleVO";
 
-interface IProductRepository {
-  getOneById: (id: ProductIdVO) => Promise<Product | null>;
-  getAllByTitle: (title: ProductTitleVO) => Promise<Product[]>;
+interface ProductsFilters {
+  query: string;
+  offset: string;
+  limit: string;
 }
 
-export { IProductRepository };
+interface IProductRepository {
+  getOneById: (id: string) => Promise<Product | null>;
+  getAll: (
+    filters: ProductsFilters
+  ) => Promise<{ pagination: Pagination; products: Product[] }>;
+}
+
+export { IProductRepository, ProductsFilters };
