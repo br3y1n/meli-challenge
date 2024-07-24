@@ -1,5 +1,5 @@
 import "dotenv/config";
-import startApi from "./shared/infrastructure/http/starter";
+import startApi from "./shared/infrastructure/ExpressStarter";
 
 const startServer = () => {
   const port = process.env.PORT;
