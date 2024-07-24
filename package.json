@@ -16,7 +16,7 @@
     "prepare": "husky",
     "validate": "yarn validate:client && yarn validate:server",
     "start:client": "dotenv -- bash -c 'yarn workspace client dev -- --port $FRONT_PORT'",
-    "start:server": "dotenv -- bash -c 'cross-env PORT=$BACK_PORT yarn workspace server dev'",
+    "start:server": "dotenv -- bash -c 'cross-env PORT=$BACK_PORT MELI_API=$MELI_API yarn workspace server dev'",
     "validate:client": "yarn workspace client validate",
     "lint:client:fix": "yarn workspace client lint:fix",
     "check:client:types": "yarn workspace client check:types",

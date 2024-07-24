@@ -3,8 +3,9 @@ import {
   Price,
   PriceAmountVO,
   PriceCurrencyVO,
-  PriceDecmalsVO,
+  PriceDecimalsVO,
   Product,
+  ProductCategoryIdVO,
   ProductConditionVO,
   ProductDescriptionVO,
   ProductFreeShippingVO,
@@ -20,6 +21,7 @@ class InMemoryProductRepository implements IProductRepository {
     new Product(
       new ProductIdVO("123"),
       new ProductTitleVO("Cepillo"),
+      new ProductCategoryIdVO("456"),
       new ProductPictureVO("/cepillo.jpg"),
       new ProductConditionVO("new"),
       new ProductFreeShippingVO(false),
@@ -29,13 +31,14 @@ class InMemoryProductRepository implements IProductRepository {
         new Price(
           new PriceCurrencyVO("COP"),
           new PriceAmountVO(456),
-          new PriceDecmalsVO(654)
+          new PriceDecimalsVO(654)
         )
       )
     ),
     new Product(
       new ProductIdVO("456"),
       new ProductTitleVO("Papas"),
+      new ProductCategoryIdVO("456"),
       new ProductPictureVO("/papas.jpg"),
       new ProductConditionVO("new"),
       new ProductFreeShippingVO(true),
@@ -45,13 +48,14 @@ class InMemoryProductRepository implements IProductRepository {
         new Price(
           new PriceCurrencyVO("USD"),
           new PriceAmountVO(456),
-          new PriceDecmalsVO(654)
+          new PriceDecimalsVO(654)
         )
       )
     ),
     new Product(
       new ProductIdVO("999"),
       new ProductTitleVO("laptop"),
+      new ProductCategoryIdVO("456"),
       new ProductPictureVO("/laptop.jpg"),
       new ProductConditionVO("old"),
       new ProductFreeShippingVO(false),
@@ -61,7 +65,7 @@ class InMemoryProductRepository implements IProductRepository {
         new Price(
           new PriceCurrencyVO("COP"),
           new PriceAmountVO(456),
-          new PriceDecmalsVO(654)
+          new PriceDecimalsVO(654)
         )
       )
     ),

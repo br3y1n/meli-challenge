@@ -9,6 +9,7 @@ services:
       - $BACK_PORT:$BACK_PORT
     environment:
       - PORT=$BACK_PORT
+      - MELI_API=$MELI_API
   frontend:
     build:
       context: ./packages/client

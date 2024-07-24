@@ -1,6 +1,6 @@
 export * from "./PriceAmountVO";
 export * from "./PriceCurrencyVO";
-export * from "./PriceDecmalsVO";
+export * from "./PriceDecimalsVO";
 export * from "./PriceEntity";
 export * from "./ProductConditionVO";
 export * from "./ProductDescriptionVO";
@@ -13,3 +13,4 @@ export * from "./ProductPriceVO";
 export * from "./IProductRepository";
 export * from "./ProductSoldQuantityVO";
 export * from "./ProductTitleVO";
+export * from "./ProductCategoryIdVO";

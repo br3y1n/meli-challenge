@@ -4,7 +4,7 @@ This project is a web application developed using modern technologies like React
 
 # Observations
 
-## 1. XXXXXXX
+## 1. sold_quantity no work
 
 xxxxxx.
 

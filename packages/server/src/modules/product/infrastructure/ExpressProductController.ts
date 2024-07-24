@@ -46,21 +46,36 @@ class ExpressProductController {
       (req.query.q as string) ?? ""
     );
 
+    const { items, categories } = products.reduce(
+      (acc, product) => {
+        const item = {
+          id: product.getId().getValue(),
+          condition: product.getCondition().getValue(),
+          picture: product.getPicture().getValue(),
+          free_shipping: product.getFreeShipping().getValue(),
+          title: product.getTitle().getValue(),
+          price: {
+            amount: product.getPrice().getValue().getAmount().getValue(),
+            currency: product.getPrice().getValue().getCurrency().getValue(),
+            decimals: product.getPrice().getValue().getDecimals().getValue(),
+          },
+        };
+
+        acc.items.push(item);
+        acc.categories[product.getCategoryId().getValue()] = true;
+
+        return acc;
+      },
+      {
+        items: [] as IItem[],
+        categories: {} as Record<string, boolean>,
+      }
+    );
+
     const response: IAllProductsResponse = {
       author: this._author,
-      categories: [],
-      items: products.map((product) => ({
-        id: product.getId().getValue(),
-        condition: product.getCondition().getValue(),
-        picture: product.getPicture().getValue(),
-        free_shipping: product.getFreeShipping().getValue(),
-        title: product.getTitle().getValue(),
-        price: {
-          amount: product.getPrice().getValue().getAmount().getValue(),
-          currency: product.getPrice().getValue().getCurrency().getValue(),
-          decimals: product.getPrice().getValue().getDecimals().getValue(),
-        },
-      })),
+      categories: Object.keys(categories),
+      items,
     };
 
     return res.json(response).status(200);
@@ -85,8 +100,8 @@ class ExpressProductController {
             currency: product.getPrice().getValue().getCurrency().getValue(),
             decimals: product.getPrice().getValue().getDecimals().getValue(),
           },
-          description: product.getDescription().getValue(),
-          sold_quantity: product.getSoldQuantity().getValue(),
+          description: product.getDescription().getValue()!,
+          sold_quantity: product.getSoldQuantity().getValue()!,
         },
       };
 

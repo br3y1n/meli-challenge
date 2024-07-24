@@ -1,3 +1,4 @@
+import { ProductCategoryIdVO } from "./ProductCategoryIdVO";
 import { ProductConditionVO } from "./ProductConditionVO";
 import { ProductDescriptionVO } from "./ProductDescriptionVO";
 import { ProductFreeShippingVO } from "./ProductFreeShippingVO";
@@ -11,6 +12,7 @@ class Product {
   constructor(
     private readonly _id: ProductIdVO,
     private readonly _title: ProductTitleVO,
+    private readonly _categoryId: ProductCategoryIdVO,
     private readonly _picture: ProductPictureVO,
     private readonly _condition: ProductConditionVO,
     private readonly _freeShipping: ProductFreeShippingVO,
@@ -49,6 +51,10 @@ class Product {
 
   public getPrice() {
     return this._price;
+  }
+
+  public getCategoryId() {
+    return this._categoryId;
   }
 }
 

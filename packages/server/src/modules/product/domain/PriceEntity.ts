@@ -1,12 +1,12 @@
 import { PriceAmountVO } from "./PriceAmountVO";
 import { PriceCurrencyVO } from "./PriceCurrencyVO";
-import { PriceDecmalsVO } from "./PriceDecmalsVO";
+import { PriceDecimalsVO } from "./PriceDecimalsVO";
 
 class Price {
   constructor(
     private readonly _currency: PriceCurrencyVO,
     private readonly _amount: PriceAmountVO,
-    private readonly _decimals: PriceDecmalsVO
+    private readonly _decimals: PriceDecimalsVO
   ) {}
 
   public getCurrency() {
