@@ -25,6 +25,8 @@
     "validate:server": "yarn workspace server validate",
     "start": "run-p start:server start:client",
     "lint:fix": "yarn lint:client:fix && yarn lint:server:fix",
+    "test:server": "yarn workspace server test",
+    "test:client": "yarn workspace client test",
     "check:types": "yarn check:client:types && yarn check:server:types"
   }
 }

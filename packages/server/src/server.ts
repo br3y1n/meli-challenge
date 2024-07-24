@@ -1,19 +1,13 @@
 import "dotenv/config";
-import express from "express";
+import startApi from "./shared/infrastructure/http/starter";
 
 const startServer = () => {
-  const app = express();
   const port = process.env.PORT;
+  const app = startApi();
 
-  app.use(express.json());
-
-  // defineRoutes(app);
-
-  const server = app.listen(port, () => console.log("Port server:", port));
-
-  return { app, server };
+  return app.listen(port, () => console.log("Port server:", port));
 };
 
-const { app, server } = startServer();
+const server = startServer();
 
-export { app, server };
+export { server };

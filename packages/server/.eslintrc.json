@@ -10,9 +10,30 @@
     "es6": true
   },
   "plugins": ["@typescript-eslint"],
-  "extends": ["eslint:recommended", "plugin:prettier/recommended"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:prettier/recommended",
+    "plugin:import/recommended"
+  ],
   "rules": {
     "prettier/prettier": ["error", {}, { "usePrettierrc": true }],
-     "no-undef": "off"
+    "no-undef": "off",
+    "import/no-cycle": ["error"],
+    "no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "caughtErrorsIgnorePattern": "^_"
+      }
+    ]
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": {}
+    },
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    }
   }
 }
