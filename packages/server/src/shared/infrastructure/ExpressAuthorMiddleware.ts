@@ -23,7 +23,7 @@ const ExpressAuthorMiddleware = (
     logger.info("ExpressAuthorMiddleware - sign");
 
     const newBody =
-      typeof body === "object" ? { ...body, author } : { author, data: body };
+      typeof body === "object" ? { author, ...body } : { author, data: body };
 
     return originalJson.call(this, newBody);
   };

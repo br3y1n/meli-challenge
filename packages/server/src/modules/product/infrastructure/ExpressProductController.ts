@@ -1,7 +1,7 @@
 import { ServiceContainer } from "@/shared/infrastructure/ServiceContainer";
 import { logger } from "@/shared/infrastructure/WinstonLogger";
 import { Request, Response } from "express";
-import { ProductsFilters } from "../domain";
+import { ProductsFilters, ProductSortEnum } from "../domain";
 
 interface IItem {
   id: string;
@@ -23,8 +23,13 @@ interface Pagination {
   limit: number;
 }
 
+interface ICategory {
+  id: string;
+  name: string;
+}
+
 interface IAllProductsResponse {
-  categories: string[];
+  categories: ICategory[];
   items: IItem[];
   pagination: Pagination;
 }
@@ -38,6 +43,7 @@ class ExpressProductController {
     limit: "4",
     offset: "0",
     query: "",
+    sort: ProductSortEnum.RELEVANCE,
   };
 
   constructor() {
@@ -52,47 +58,46 @@ class ExpressProductController {
       data: req.query,
     });
 
-    const { products, pagination } = await ServiceContainer.product.getAll.run({
+    const {
+      products,
+      pagination: productPagination,
+      categories: productCategories,
+    } = await ServiceContainer.product.getAll.run({
       limit: (req.query.limit as string) ?? this._defaultFilters.limit,
       offset: (req.query.offset as string) ?? this._defaultFilters.offset,
       query: (req.query.q as string) ?? this._defaultFilters.query,
+      sort: (req.query.sort as ProductSortEnum) ?? this._defaultFilters.sort,
     });
 
-    const { items, categories } = products.reduce(
-      (acc, product) => {
-        const item = {
-          id: product.getId().getValue(),
-          condition: product.getCondition().getValue(),
-          picture: product.getPicture().getValue(),
-          free_shipping: product.getFreeShipping().getValue(),
-          title: product.getTitle().getValue(),
-          price: {
-            amount: product.getPrice().getValue().getAmount().getValue(),
-            currency: product.getPrice().getValue().getCurrency().getValue(),
-            decimals: product.getPrice().getValue().getDecimals().getValue(),
-          },
-        };
-
-        acc.items.push(item);
-        acc.categories[product.getCategoryId().getValue()] = true;
-
-        return acc;
+    const items = products.map<IItem>((product) => ({
+      id: product.getId().getValue(),
+      condition: product.getCondition().getValue(),
+      picture: product.getPicture().getValue(),
+      free_shipping: product.getFreeShipping().getValue(),
+      title: product.getTitle().getValue(),
+      price: {
+        amount: product.getPrice().getValue().getAmount().getValue(),
+        currency: product.getPrice().getValue().getCurrency().getValue(),
+        decimals: product.getPrice().getValue().getDecimals().getValue(),
       },
-      {
-        items: [] as IItem[],
-        categories: {} as Record<string, boolean>,
-      }
-    );
+    }));
+
+    const pagination = {
+      limit: productPagination.getLimit().getValue(),
+      max_items: productPagination.getMaxItems().getValue(),
+      offset: productPagination.getOffset().getValue(),
+      total: productPagination.getTotal().getValue(),
+    };
+
+    const categories = productCategories.map<ICategory>((category) => ({
+      id: category.getId().getValue(),
+      name: category.getName().getValue(),
+    }));
 
     const response: IAllProductsResponse = {
-      categories: Object.keys(categories),
+      categories,
       items,
-      pagination: {
-        limit: pagination.getLimit().getValue(),
-        max_items: pagination.getMaxItems().getValue(),
-        offset: pagination.getOffset().getValue(),
-        total: pagination.getTotal().getValue(),
-      },
+      pagination,
     };
 
     return res.json(response).status(200);

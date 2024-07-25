@@ -31,6 +31,7 @@ const config: Config = {
     ],
   },
   testMatch: ["**/__tests__/src/**/*.[jt]s?(x)"],
+  collectCoverage: true,
   coverageThreshold: {
     global: {
       branches: 100,

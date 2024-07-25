@@ -8,6 +8,9 @@ import {
 import { axiosClient } from "@/shared/infrastructure/AxiosClient";
 import { logger } from "@/shared/infrastructure/WinstonLogger";
 import {
+  Category,
+  CategoryIdVO,
+  CategoryNameVO,
   IProductRepository,
   Price,
   PriceAmountVO,
@@ -56,9 +59,27 @@ interface Picture {
   secure_url: string;
 }
 
+interface FilterValuePath {
+  id: string;
+  name: string;
+}
+
+interface FilterValue {
+  id: string;
+  name: string;
+  path_from_root: FilterValuePath[];
+}
+
+interface Filter {
+  id: string;
+  name: string;
+  values: FilterValue[];
+}
+
 interface MeliApiSerchResponse {
   paging: Paging;
   results: Result[];
+  filters: Filter[];
 }
 
 interface MeliApiItemResponse extends Result {
@@ -100,6 +121,7 @@ class MeliApiProductRepository implements IProductRepository {
       data: {
         results,
         paging: { limit, offset, primary_results, total },
+        filters: responseFilters,
       },
     } = await axiosClient.get<MeliApiSerchResponse>(
       `sites/MLA/search?${params}`
@@ -145,9 +167,18 @@ class MeliApiProductRepository implements IProductRepository {
       new PaginationTotalVO(total)
     );
 
+    const { values: [category] = [] } =
+      responseFilters.find((filter) => filter.id === "category") ?? {};
+
+    const categories = (category?.path_from_root ?? []).map<Category>(
+      ({ id, name }) =>
+        new Category(new CategoryIdVO(id), new CategoryNameVO(name))
+    );
+
     return {
       pagination,
       products,
+      categories,
     };
   }
 

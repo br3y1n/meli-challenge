@@ -94,6 +94,7 @@ class InMemoryProductRepository implements IProductRepository {
           .toLowerCase()
           .includes(filters.query.toLowerCase())
       ),
+      categories: [],
     };
   }
 
