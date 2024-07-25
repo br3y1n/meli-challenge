@@ -3,11 +3,6 @@ import { logger } from "@/shared/infrastructure/WinstonLogger";
 import { Request, Response } from "express";
 import { ProductsFilters } from "../domain";
 
-interface IAuthor {
-  name: string;
-  lastname: string;
-}
-
 interface IItem {
   id: string;
   title: string;
@@ -29,22 +24,16 @@ interface Pagination {
 }
 
 interface IAllProductsResponse {
-  author: IAuthor;
   categories: string[];
   items: IItem[];
   pagination: Pagination;
 }
 
 interface IProductResponse {
-  author: IAuthor;
   item: IItem & { sold_quantity: number; description: string };
 }
 
 class ExpressProductController {
-  private readonly _author: IAuthor = {
-    name: "Brayan",
-    lastname: "Arango",
-  };
   private readonly _defaultFilters: ProductsFilters = {
     limit: "4",
     offset: "0",
@@ -96,7 +85,6 @@ class ExpressProductController {
     );
 
     const response: IAllProductsResponse = {
-      author: this._author,
       categories: Object.keys(categories),
       items,
       pagination: {
@@ -122,7 +110,6 @@ class ExpressProductController {
       );
 
       const response: IProductResponse = {
-        author: this._author,
         item: {
           id: product.getId().getValue(),
           condition: product.getCondition().getValue(),

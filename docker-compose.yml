@@ -10,6 +10,8 @@ services:
     environment:
       - PORT=$BACK_PORT
       - MELI_API=$MELI_API
+      - SIGNATURE_NAME=$SIGNATURE_NAME
+      - SIGNATURE_LAST_NAME=$SIGNATURE_LAST_NAME
   frontend:
     build:
       context: ./packages/client
