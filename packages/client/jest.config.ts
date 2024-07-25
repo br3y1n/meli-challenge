@@ -6,7 +6,7 @@ const config: Config = {
     "@/(.*)": "<rootDir>/src/$1",
     "@app/(.*)": "<rootDir>/src/app/$1",
     // "@themes/(.*)": "<rootDir>/src/themes/$1",
-    // "@components/(.*)": "<rootDir>/src/components/$1",
+    "@components/(.*)": "<rootDir>/src/components/$1",
     // "@hooks/(.*)": "<rootDir>/src/hooks/$1",
     // "@contexts/(.*)": "<rootDir>/src/contexts/$1",
     // "@adapters/(.*)": "<rootDir>/src/adapters/$1",
