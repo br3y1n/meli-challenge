@@ -23,6 +23,9 @@ const config: Config = {
         "2xl": "28px",
         "3xl": "32px",
       },
+      screens: {
+        xs: "479px",
+      },
     },
   },
 };
