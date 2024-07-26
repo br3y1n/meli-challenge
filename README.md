@@ -1,28 +1,68 @@
 # MELI - Challenge
 
-This project is a web application developed using modern technologies like React.js, Next.js, Typescript, and Jest. The application has been optimized for high performance, achieving a 100% score in Lighthouse. Additionally, it includes unit tests that cover 100% of the code.
+This project is a web application developed using modern technologies. The frontend is built with React.js, Next.js, TypeScript, and Jest, while the backend is powered by Node.js and Express.
 
 # Observations
 
-## 1. sold_quantity no work
+## 1. Filtering by category, sort, display limit and pagination
 
-xxxxxx.
+The application offers the possibility of filtering items by category, sort, display limit and pagination.
 
-- ### xxxxx
+- ### Category
 
-xxxxxxxxxx.
+![Category](./images/category_filter.png)
 
-- ### xxx
+- ### Sort
 
-xxxxxxx.
+![Sort](./images/sort_filter.png)
 
-## 2. xxx
+- ### Limit
 
-xxxx.
+![Limit](./images/limit_filter.png)
+
+- ### Pagination
+
+![Pagination](./images/pagination_filter.png)
+
+## 2. Skeletons
+
+Skeleton screens are implemented for the items and description pages to enhance the visual experience while the page is loading.
+
+- ### Items
+
+![items skeleton](./images/items_skeleton.png)
+
+- ### Description
+
+![description skeleton](./images/description_skeleton.png)
+
+## 3. Change - API schema
+
+The response schema has been updated to include additional information such as categories and pagination details..
+
+## 4. Sold_quantity - not available
+
+The sold_quantity field is not available in the Mercado Libre API. Although the logic is implemented to return this field, it cannot be included in the response schema of the endpoint due to its absence in the API.
+
+![sold_quantity not available](./images/sold_quantity.png)
+
+## 5. Technical debt - coverage
+
+Although the project is configured to run unit tests, due to time constraints, not all tests were completed, especially those for the backend.
+
+- ### Frontend
+
+![Frontend](./images/frontend_coverage.png)
+
+- ### Backend
+
+Without tests... :sweat_smile:
+
+![Backend](./images/backend_coverage.png)
 
 # Requirements
 
-Before starting, ensure you meet one of the following paths to run the application:
+Before starting, ensure you meet one of the following paths to run the application (Note: It's worth noting that both environments are in development mode. As a result, there may be some initial delay when navigating between pages for the first time, as Next.js builds each page individually in real-time.):
 
 ## Option 1: Using Docker (Recommended)
 
@@ -34,15 +74,16 @@ Before starting, ensure you meet one of the following paths to run the applicati
 git clone https://github.com/br3y1n/meli-challenge.git
 cd meli-challenge
 ```
-3. create .env file from .env.example
+
+3. Create a **.env** file using the information from the **.env.example** file. Simply copy the contents of **.env.example** and paste them into a new **.env** file.
 
 4. Run Docker Compose to build and start the development environment:
 
 ```bash
-docker-compose up
+docker-compose up --build
 ```
 
-Once the container is running, you can access the application at http://localhost:4000 and the API at http://localhost:4001.
+Once the container is running, you can access the application at http://localhost:4000 and the API at http://localhost:4001. (Note that these URLs are based on the configuration provided in the **.env.example** file. If you have used different settings or values for your **.env** file, the ports or URLs may vary accordingly.)
 
 ## Option 2: Without Docker
 
@@ -55,7 +96,7 @@ git clone https://github.com/br3y1n/meli-challenge.git
 cd meli-challenge
 ```
 
-3. create .env file from .env.example
+3. Create a **.env** file using the information from the **.env.example** file. Simply copy the contents of **.env.example** and paste them into a new **.env** file.
 
 4. Install dependencies using Yarn:
 
@@ -69,14 +110,22 @@ yarn
 yarn start
 ```
 
-The application will be available at http://localhost:4000 and the API at http://localhost:4001.
+The application will be available at http://localhost:4000 and the API at http://localhost:4001. (Note that these URLs are based on the configuration provided in the **.env.example** file. If you have used different settings or values for your **.env** file, the ports or URLs may vary accordingly.)
 
 # Unit Tests
 
 The project includes unit tests written with Jest to ensure stability and proper functionality of the components. To run the tests, follow these steps:
 
+- ### Run Frontend tests
+
 ```bash
-yarn coverage
+yarn test:client
+```
+
+- ### Run Backend tests
+
+```bash
+yarn test:server
 ```
 
 This command will execute the tests and display the results, including the code coverage percentage.
@@ -89,5 +138,6 @@ This project utilizes the following technologies:
 - [Next.js](https://nextjs.org/)
 - [Typescript](https://www.typescriptlang.org/)
 - [Jest](https://jestjs.io/)
-
-Thank you for your interest in this project! If you have any questions or suggestions, please feel free to reach out. Enjoy developing with Next.js 14 and modern technologies!
+- [Node.js](https://nodejs.org/)
+- [Express.js](https://expressjs.com/)
+- [Tailwind](https://tailwindcss.com/)

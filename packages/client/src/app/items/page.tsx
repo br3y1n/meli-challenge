@@ -6,6 +6,7 @@ import { Select, SelectPostionEnum, SelectSizeEnum } from "@components/Select";
 import { defaultAccessibilityProperties } from "@constants/defaultAccessibilityProperties";
 import { texts } from "@constants/texts";
 import { formatNumber } from "@utils/formatNumber";
+import { Suspense } from "react";
 import { Controller } from "react-hook-form";
 import { ItemsSkeleton } from "./components";
 import { useItemsPageState } from "./state";
@@ -26,7 +27,7 @@ const sortOptions = [
   { label: "Mayor precio", value: "price_desc" },
 ];
 
-const ItemsPage = () => {
+const WrapperItemsPage = () => {
   const {
     hasItems,
     items,
@@ -129,5 +130,11 @@ const ItemsPage = () => {
     </>
   );
 };
+
+const ItemsPage = () => (
+  <Suspense fallback={<ItemsSkeleton />}>
+    <WrapperItemsPage />
+  </Suspense>
+);
 
 export default ItemsPage;

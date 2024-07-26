@@ -37,5 +37,6 @@
     "import/parsers": {
       "@typescript-eslint/parser": [".ts", ".tsx"]
     }
-  }
+  },
+  "ignorePatterns": ["node_modules", ".next", "coverage"]
 }

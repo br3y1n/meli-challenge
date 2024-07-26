@@ -2,6 +2,11 @@ import { useItem } from "@api/getItem";
 import { useParams, useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 
+const conditionMap: Record<string, string> = {
+  new: "Nuevo",
+  old: "Usado",
+};
+
 const useItemPageState = () => {
   const { id } = useParams<{ id: string }>();
   const { data, isLoading, error } = useItem({ id });
@@ -20,7 +25,7 @@ const useItemPageState = () => {
               amount: data.item.price.amount,
               decimals: data.item.price.decimals,
             },
-            condition: data.item.condition,
+            condition: conditionMap[data.item.condition] ?? data.item.condition,
             image: data.item.picture,
             freeShipping: data.item.free_shipping,
           },

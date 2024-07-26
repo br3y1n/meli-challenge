@@ -38,5 +38,6 @@
     "import/parsers": {
       "@typescript-eslint/parser": [".ts", ".tsx"]
     }
-  }
+  },
+  "ignorePatterns": ["dist", "node_modules", "coverage"]
 }

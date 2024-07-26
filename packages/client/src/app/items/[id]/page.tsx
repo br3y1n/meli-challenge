@@ -39,7 +39,7 @@ const ItemPage = () => {
             <div className="flex flex-col gap-2 w-full">
               <img
                 src={item!.image}
-                className="w-[90%] xs:w-[75%] md:w-full min-w-0 object-contain mx-auto"
+                className="w-[90%] xs:w-[75%] md:w-full min-w-0 object-contain mx-auto max-h-[550px]"
               />
               <hr className="mt-5" />
               <p className="text-lg xs:text-xl">{descriptionTitle}</p>
