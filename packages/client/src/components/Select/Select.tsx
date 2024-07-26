@@ -25,7 +25,7 @@ const Select = <T,>(props: ISelectProps<T>) => {
       />
 
       {open && (
-        <ul className="absolute top-full bg-white right-0 min-w-full max-w-[120%] z-50 rounded-md overflow-hidden shadow-md">
+        <ul className="absolute top-full bg-white right-0 min-w-full max-w-[120%] z-50 rounded-md overflow-hidden shadow-md max-h-[111px] overflow-y-auto">
           {options.map((option, idx) => {
             const isSelectedOption = option === optionSelected;
             const { label, value: optionValue } = option;

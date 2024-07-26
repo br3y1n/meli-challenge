@@ -15,7 +15,7 @@
   "scripts": {
     "prepare": "husky",
     "validate": "yarn validate:client && yarn validate:server",
-    "start:client": "dotenv -- bash -c 'yarn workspace client dev -- --port $FRONT_PORT'",
+    "start:client": "dotenv -- bash -c 'cross-env NEXT_PUBLIC_MY_API=http://localhost:$BACK_PORT/api yarn workspace client dev -- --port $FRONT_PORT'",
     "start:server": "dotenv -- bash -c 'cross-env PORT=$BACK_PORT MELI_API=$MELI_API SIGNATURE_NAME=$SIGNATURE_NAME SIGNATURE_LAST_NAME=$SIGNATURE_LAST_NAME yarn workspace server dev'",
     "validate:client": "yarn workspace client validate",
     "lint:client:fix": "yarn workspace client lint:fix",

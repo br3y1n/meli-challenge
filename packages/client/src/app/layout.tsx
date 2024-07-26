@@ -1,5 +1,6 @@
 import { Header } from "@components/Header";
 import { Main } from "@components/Main";
+import { ReactQueryProvider } from "@components/ReactQueryProvider";
 import clsx from "clsx";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
@@ -35,8 +36,10 @@ const RootLayout = ({
         <link rel="icon" href="/favicon.ico" sizes="32x32" />
       </head>
       <body className={clsx(proximaNova.className, "flex flex-col")}>
-        <Header />
-        <Main>{children}</Main>
+        <ReactQueryProvider>
+          <Header />
+          <Main>{children}</Main>
+        </ReactQueryProvider>
       </body>
     </html>
   );

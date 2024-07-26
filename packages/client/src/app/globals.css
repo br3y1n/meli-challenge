@@ -15,3 +15,25 @@ body {
   overflow-y: auto;
   background-color: #ededed;
 }
+
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  @apply bg-transparent hover:bg-black/10;
+  opacity: 0.33;
+  border-radius: 20px;
+}
+
+*::-webkit-scrollbar-track:horizontal {
+  @apply bg-black/10;
+}
+
+*::-webkit-scrollbar-thumb {
+  @apply bg-black/20;
+  opacity: 0.33;
+  border-radius: 20px;
+  cursor: pointer;
+}

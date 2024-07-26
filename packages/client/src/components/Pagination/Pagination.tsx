@@ -28,7 +28,7 @@ const CustomPageButton = ({
   ...otherProps
 }: TButtonProps) => (
   <Button
-    className={clsx("h-[32px] w-[32px]", className)}
+    className={clsx("h-[32px] min-w-[32px] px-0.5", className)}
     variant={variant}
     {...otherProps}
   />
