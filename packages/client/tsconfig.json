@@ -22,11 +22,12 @@
       "@constants/*": ["./src/constants/*"],
       "@components/*": ["./src/components/*"],
       "@api/*": ["./src/api/*"],
+      "@hooks/*": ["./src/hooks/*"],
       "@lib/*": ["./src/lib/*"],
-      // "@entities/*": ["./src/entities/*"],
+      "@utils/*": ["./src/utils/*"],
       "@test-utils": ["./__tests__/test.utils.tsx"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "public", ".next", "coverage"]
 }

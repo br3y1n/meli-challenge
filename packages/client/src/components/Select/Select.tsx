@@ -2,13 +2,24 @@
 import { defaultAccessibilityProperties } from "@constants/defaultAccessibilityProperties";
 import clsx from "clsx";
 import { IoIosArrowDown } from "react-icons/io";
-import { ISelectProps } from "./Select.interfaces";
+import { sizeMap } from "./constants";
+import {
+  ISelectProps,
+  SelectPostionEnum,
+  SelectSizeEnum,
+} from "./Select.interfaces";
 import { useSelectState } from "./state";
 
 const Select = <T,>(props: ISelectProps<T>) => {
-  const { options, onChange } = props;
+  const {
+    options,
+    onChange,
+    size = SelectSizeEnum.MD,
+    position = SelectPostionEnum.BOTTOM,
+  } = props;
   const { closeSelect, toggleOpen, open, optionSelected } =
     useSelectState(props);
+  const { icon: iconClass, text: textClass } = sizeMap[size];
 
   return (
     <div
@@ -16,16 +27,23 @@ const Select = <T,>(props: ISelectProps<T>) => {
       onClick={toggleOpen}
       {...defaultAccessibilityProperties}
     >
-      <p className="text-sm">{optionSelected?.label}</p>
+      <p className={textClass}>{optionSelected?.label}</p>
       <IoIosArrowDown
         className={clsx(
-          "text-blue-light h-[15px] transition",
-          open && "rotate-180"
+          "text-blue-light transition",
+          open && "rotate-180",
+          iconClass
         )}
       />
 
       {open && (
-        <ul className="absolute top-full bg-white right-0 min-w-full max-w-[120%] z-50 rounded-md overflow-hidden shadow-md max-h-[111px] overflow-y-auto">
+        <ul
+          className={clsx(
+            "absolute bg-white right-0 min-w-full max-w-[120%] z-50 rounded-md overflow-hidden shadow-lg max-h-[111px] overflow-y-auto",
+            position === SelectPostionEnum.BOTTOM && "top-full",
+            position === SelectPostionEnum.TOP && "bottom-full"
+          )}
+        >
           {options.map((option, idx) => {
             const isSelectedOption = option === optionSelected;
             const { label, value: optionValue } = option;
@@ -42,10 +60,11 @@ const Select = <T,>(props: ISelectProps<T>) => {
                 }}
                 {...defaultAccessibilityProperties}
                 className={clsx(
-                  "border-b py-2 px-3 border-gray-extra-light last:border-none text-sm relative",
+                  "border-b py-2 px-3 border-gray-extra-light last:border-none relative",
                   isSelectedOption
-                    ? "text-blue-light hover:text-blue-light cursor-default font-bold text-md before:border-blue-light before:border-l before:absolute before:top-0 before:left-0 before:h-full"
-                    : "hover:text-gray-dark text-gray-dark hover:bg-black/5 hover:before:absolute hover:before:h-full hover:before:border-blue-300 hover:before:border-l hover:before:top-0 hover:before:left-0 hover:before:border-[3px]"
+                    ? "text-blue-light hover:text-blue-light cursor-default font-bold before:border-blue-light before:border-l before:absolute before:top-0 before:left-0 before:h-full"
+                    : "hover:text-gray-dark text-gray-dark hover:bg-black/5 hover:before:absolute hover:before:h-full hover:before:border-blue-300 hover:before:border-l hover:before:top-0 hover:before:left-0 hover:before:border-[3px]",
+                  textClass
                 )}
               >
                 {label}

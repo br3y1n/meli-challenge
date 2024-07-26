@@ -2,7 +2,7 @@ import { ButtonVariantEnum } from "../Button.interfaces";
 
 const variantMap: Record<ButtonVariantEnum, string> = {
   [ButtonVariantEnum.PRIMARY]:
-    "bg-blue-light rounded text-white hover:bg-blue-dark",
+    "bg-blue-light rounded text-white hover:bg-blue-dark disabled:bg-blue-300 disabled:cursor-progress",
   [ButtonVariantEnum.DEFAULT]:
     "active:ring active:ring-black rounded hover:bg-black/5 text-gray-light",
   [ButtonVariantEnum.DEFAULT_PRIMARY_PALE]:

@@ -58,4 +58,4 @@ const useAllItems = ({ filters, config = {} }: UseAllItemsParams) =>
   });
 
 export { useAllItems };
-export type { GetAllItemsParams, IItem };
+export type { GetAllItemsParams, IItem, ICategory };

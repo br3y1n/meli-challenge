@@ -1,10 +1,13 @@
 import { useItem } from "@api/getItem";
-import { useParams } from "next/navigation";
-import { useMemo } from "react";
+import { useParams, useRouter } from "next/navigation";
+import { useMemo, useState } from "react";
 
 const useItemPageState = () => {
   const { id } = useParams<{ id: string }>();
-  const { data } = useItem({ id });
+  const { data, isLoading, error } = useItem({ id });
+  const router = useRouter();
+  const [redirecting, setRedirecting] = useState(false);
+  const [success, setSucess] = useState(false);
 
   const item = useMemo(
     () =>
@@ -19,19 +22,41 @@ const useItemPageState = () => {
             },
             condition: data.item.condition,
             image: data.item.picture,
+            freeShipping: data.item.free_shipping,
           },
     [data?.item]
   );
 
-  const breadcrumbs = [
-    { label: "Breadcrumb 1" },
-    { label: "Breadcrumb 2" },
-    { label: "Breadcrumb 3" },
-  ];
+  const breadcrumbs = useMemo(
+    () =>
+      (data?.categories ?? []).map(({ name, id }) => ({
+        label: name,
+        onClick: () => {
+          router.push(`/items?category=${id}`);
+        },
+      })),
+    [data?.categories]
+  );
 
   const hasItem = item !== null;
 
-  return { hasItem, item, breadcrumbs };
+  const goSuccess = () => {
+    setRedirecting(true);
+    setTimeout(() => {
+      setSucess(true);
+    }, 2000);
+  };
+
+  return {
+    hasItem,
+    item,
+    breadcrumbs,
+    redirecting,
+    goSuccess,
+    isLoading,
+    error,
+    success,
+  };
 };
 
 export { useItemPageState };

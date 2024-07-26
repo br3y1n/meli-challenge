@@ -14,6 +14,7 @@ const config: Config = {
         "blue-dark": "#2e67bd",
         "blue-pale-light": "#e3edfb",
         "blue-pale-dark": "#d2dff0",
+        green: "#00A650",
       },
       fontSize: {
         xs: "14px",

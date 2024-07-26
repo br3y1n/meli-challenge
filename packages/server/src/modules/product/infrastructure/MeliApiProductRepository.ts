@@ -209,25 +209,37 @@ class MeliApiProductRepository implements IProductRepository {
       `/items/${id}/description`
     );
 
+    const {
+      data: { path_from_root },
+    } = await axiosClient.get<FilterValue>(`/categories/${category_id}`);
+
+    const categories = path_from_root.map<Category>(
+      ({ id, name }) =>
+        new Category(new CategoryIdVO(id), new CategoryNameVO(name))
+    );
+
     const [amount, decimals] = extractValues(price);
 
-    return new Product(
-      new ProductIdVO(productId),
-      new ProductTitleVO(title),
-      new ProductCategoryIdVO(category_id),
-      new ProductPictureVO(picture?.secure_url ?? thumbnail),
-      new ProductConditionVO(condition),
-      new ProductFreeShippingVO(free_shipping),
-      new ProductSoldQuantityVO(sold_quantity),
-      new ProductDescriptionVO(text || plain_text),
-      new ProductPriceVO(
-        new Price(
-          new PriceCurrencyVO(currency_id),
-          new PriceAmountVO(amount),
-          new PriceDecimalsVO(decimals)
+    return {
+      product: new Product(
+        new ProductIdVO(productId),
+        new ProductTitleVO(title),
+        new ProductCategoryIdVO(category_id),
+        new ProductPictureVO(picture?.secure_url ?? thumbnail),
+        new ProductConditionVO(condition),
+        new ProductFreeShippingVO(free_shipping),
+        new ProductSoldQuantityVO(sold_quantity),
+        new ProductDescriptionVO(text || plain_text),
+        new ProductPriceVO(
+          new Price(
+            new PriceCurrencyVO(currency_id),
+            new PriceAmountVO(amount),
+            new PriceDecimalsVO(decimals)
+          )
         )
-      )
-    );
+      ),
+      categories,
+    };
   }
 }
 

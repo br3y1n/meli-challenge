@@ -1,9 +1,13 @@
 "use client";
 import { Breadcrumb } from "@components/Breadcrumb";
+import { ErrorMessage } from "@components/ErrorMessage";
 import { Pagination } from "@components/Pagination";
-import { Select } from "@components/Select";
+import { Select, SelectPostionEnum, SelectSizeEnum } from "@components/Select";
 import { defaultAccessibilityProperties } from "@constants/defaultAccessibilityProperties";
+import { texts } from "@constants/texts";
+import { formatNumber } from "@utils/formatNumber";
 import { Controller } from "react-hook-form";
+import { ItemsSkeleton } from "./components";
 import { useItemsPageState } from "./state";
 
 const selectLabel = "Ordenar por";
@@ -18,8 +22,8 @@ const limitOptions = [
 
 const sortOptions = [
   { label: "Más relevantes", value: "relevance" },
-  { label: "Menor precio", value: "price_dsc" },
-  { label: "Mayor precio", value: "price_asc" },
+  { label: "Menor precio", value: "price_asc" },
+  { label: "Mayor precio", value: "price_desc" },
 ];
 
 const ItemsPage = () => {
@@ -31,11 +35,17 @@ const ItemsPage = () => {
     control,
     goToItem,
     setValue,
+    isLoading,
+    error,
   } = useItemsPageState();
 
   return (
-    <section className="p-5 flex flex-col gap-4 max-w-screen-lg mx-auto">
-      {hasItems ? (
+    <>
+      {isLoading ? (
+        <ItemsSkeleton />
+      ) : error ? (
+        <ErrorMessage />
+      ) : hasItems ? (
         <>
           <div className="flex justify-between gap-2 flex-col sm:flex-row">
             <Breadcrumb items={breadcrumbs} />
@@ -57,7 +67,7 @@ const ItemsPage = () => {
           </div>
 
           <ol className="rounded bg-white flex flex-col gap-2">
-            {items.map(({ id, image, price, title }) => (
+            {items.map(({ id, image, price, title, freeShipping }) => (
               <li
                 className="min-h-[205px] flex py-6 px-4 border-b border-gray-100 gap-6 cursor-pointer sm:flex-row flex-col items-center sm:items-stretch"
                 key={id}
@@ -71,7 +81,10 @@ const ItemsPage = () => {
 
                 <div className="flex flex-col gap-3 w-full">
                   <h2 className="text-lg">{title}</h2>
-                  <p className="text-xl">$ {price.toLocaleString("es-ES")}</p>
+                  <p className="text-xl">$ {formatNumber(price)}</p>
+                  <p className="text-green text-md font-semibold">
+                    {freeShipping && texts.free}
+                  </p>
                 </div>
               </li>
             ))}
@@ -97,6 +110,8 @@ const ItemsPage = () => {
                 <Select
                   options={limitOptions}
                   value={value}
+                  position={SelectPostionEnum.TOP}
+                  size={SelectSizeEnum.LG}
                   onChange={(newValue) => {
                     setValue("currentPage", 1);
                     onChange(newValue);
@@ -111,7 +126,7 @@ const ItemsPage = () => {
           <p className="text-lg px-4 py-16 text-center">{emptyText}</p>
         </div>
       )}
-    </section>
+    </>
   );
 };
 

@@ -12,11 +12,14 @@ interface ProductsFilters {
   query: string;
   offset: string;
   limit: string;
+  category: string;
   sort: ProductSortEnum;
 }
 
 interface IProductRepository {
-  getOneById: (id: string) => Promise<Product | null>;
+  getOneById: (
+    id: string
+  ) => Promise<{ product: Product; categories: Category[] }>;
   getAll: (filters: ProductsFilters) => Promise<{
     pagination: Pagination;
     products: Product[];

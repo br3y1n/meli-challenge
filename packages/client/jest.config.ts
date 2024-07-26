@@ -8,8 +8,9 @@ const config: Config = {
     "@constants/(.*)": "<rootDir>/src/constants/$1",
     "@components/(.*)": "<rootDir>/src/components/$1",
     "@api/(.*)": "<rootDir>/src/api/$1",
+    "@hooks/(.*)": "<rootDir>/src/hooks/$1",
     "@lib/(.*)": "<rootDir>/src/lib/$1",
-    // "@adapters/(.*)": "<rootDir>/src/adapters/$1",
+    "@utils/(.*)": "<rootDir>/src/utils/$1",
     "@test-utils": "<rootDir>/__tests__/test.utils.tsx",
     "\\.(css|less|scss|sass)$": "identity-obj-proxy",
     "next/font/(.*)": require.resolve(

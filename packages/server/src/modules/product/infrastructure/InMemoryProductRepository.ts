@@ -99,11 +99,11 @@ class InMemoryProductRepository implements IProductRepository {
   }
 
   public async getOneById(id: string) {
-    const product =
-      this.products.find((product) => product.getId().getValue() === id) ??
-      null;
+    const product = this.products.find(
+      (product) => product.getId().getValue() === id
+    )!;
 
-    return product;
+    return { product, categories: [] };
   }
 }
 

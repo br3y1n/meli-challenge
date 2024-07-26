@@ -36,6 +36,7 @@ interface IAllProductsResponse {
 
 interface IProductResponse {
   item: IItem & { sold_quantity: number; description: string };
+  categories: ICategory[];
 }
 
 class ExpressProductController {
@@ -44,6 +45,7 @@ class ExpressProductController {
     offset: "0",
     query: "",
     sort: ProductSortEnum.RELEVANCE,
+    category: "",
   };
 
   constructor() {
@@ -67,6 +69,7 @@ class ExpressProductController {
       offset: (req.query.offset as string) ?? this._defaultFilters.offset,
       query: (req.query.q as string) ?? this._defaultFilters.query,
       sort: (req.query.sort as ProductSortEnum) ?? this._defaultFilters.sort,
+      category: (req.query.category as string) ?? this._defaultFilters.category,
     });
 
     const items = products.map<IItem>((product) => ({
@@ -109,32 +112,33 @@ class ExpressProductController {
       data: req.params,
     });
 
-    try {
-      const product = await ServiceContainer.product.getOneById.run(
-        req.params.id
-      );
+    const { categories, product } =
+      await ServiceContainer.product.getOneById.run(req.params.id);
 
-      const response: IProductResponse = {
-        item: {
-          id: product.getId().getValue(),
-          condition: product.getCondition().getValue(),
-          picture: product.getPicture().getValue(),
-          free_shipping: product.getFreeShipping().getValue(),
-          title: product.getTitle().getValue(),
-          price: {
-            amount: product.getPrice().getValue().getAmount().getValue(),
-            currency: product.getPrice().getValue().getCurrency().getValue(),
-            decimals: product.getPrice().getValue().getDecimals().getValue(),
-          },
-          description: product.getDescription().getValue()!,
-          sold_quantity: product.getSoldQuantity().getValue()!,
+    const newCategories = categories.map<ICategory>((category) => ({
+      id: category.getId().getValue(),
+      name: category.getName().getValue(),
+    }));
+
+    const response: IProductResponse = {
+      item: {
+        id: product.getId().getValue(),
+        condition: product.getCondition().getValue(),
+        picture: product.getPicture().getValue(),
+        free_shipping: product.getFreeShipping().getValue(),
+        title: product.getTitle().getValue(),
+        price: {
+          amount: product.getPrice().getValue().getAmount().getValue(),
+          currency: product.getPrice().getValue().getCurrency().getValue(),
+          decimals: product.getPrice().getValue().getDecimals().getValue(),
         },
-      };
+        description: product.getDescription().getValue()!,
+        sold_quantity: product.getSoldQuantity().getValue()!,
+      },
+      categories: newCategories,
+    };
 
-      return res.json(response).status(200);
-    } catch {
-      return res.status(404).json({ message: "Ocurrio algo inesperado" });
-    }
+    return res.json(response).status(200);
   }
 }
 
