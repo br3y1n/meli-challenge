@@ -4,4 +4,4 @@ interface IMainProps {
   children: ReactNode;
 }
 
-export default IMainProps;
+export type { IMainProps };

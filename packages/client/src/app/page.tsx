@@ -5,26 +5,23 @@ const description =
 
 const instruction = '"Use the search box above to get started"';
 
-const HomePage = () => (
-  <section className="w-full flex flex-col justify-center items-center gap-2 p-5 min-h-[100%]">
-    <h1 className="font-bold text-[24px] md:text-[28px] text-center">
-      {title}
-    </h1>
-
-    <img
-      src="./images/brayayin.webp"
-      alt="El Brayayin"
-      className="w-[80%] md:w-full max-w-[450px] h-auto"
-    />
-
-    <p className="text-center text-[16px] md:text-[20px] max-w-[700px]">
-      {description}
-    </p>
-
-    <p className="text-center text-[14px] md:text-[16px] italic">
-      {instruction}
-    </p>
-  </section>
-);
+const HomePage = () => {
+  return (
+    <section className="w-full flex flex-col justify-center items-center gap-2 p-5 min-h-[100%]">
+      <h1 className="font-bold text-xl md:text-2xl text-center">{title}</h1>
+      <img
+        src="./images/brayayin.webp"
+        alt="El Brayayin"
+        className="w-[80%] md:w-full max-w-[450px] h-auto"
+      />
+      <p className="text-center text-md md:text-lg max-w-[700px] text-gray-dark">
+        {description}
+      </p>
+      <p className="text-center text-sm md:text-md italic font-bold">
+        {instruction}
+      </p>
+    </section>
+  );
+};
 
 export { HomePage as default };

@@ -1,4 +1,5 @@
 "use client";
+import { Button, ButtonVariantEnum } from "@components/Button";
 import { useParams } from "next/navigation";
 
 const ItemPage = () => {
@@ -31,9 +32,9 @@ const ItemPage = () => {
             <p>title</p>
             <p>price</p>
 
-            <button className="bg-blue-500 rounded text-white p-1 w-full">
+            <Button variant={ButtonVariantEnum.PRIMARY} className="p-1 w-full">
               Comprar
-            </button>
+            </Button>
           </div>
         </div>
       </div>

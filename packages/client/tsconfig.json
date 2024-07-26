@@ -19,7 +19,7 @@
     ],
     "paths": {
       "@app/*": ["./src/app/*"],
-      // "@themes/*": ["./src/themes/*"],
+      "@constants/*": ["./src/constants/*"],
       "@components/*": ["./src/components/*"],
       // "@hooks/*": ["./src/hooks/*"],
       // "@contexts/*": ["./src/contexts/*"],
