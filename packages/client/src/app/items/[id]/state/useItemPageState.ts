@@ -39,6 +39,7 @@ const useItemPageState = () => {
         onClick: () => {
           router.push(`/items?category=${id}`);
         },
+        ariaLabel: `Filtrar por ${name}`,
       })),
     [data?.categories]
   );

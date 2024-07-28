@@ -40,10 +40,11 @@ const ItemPage = () => {
               <img
                 src={item!.image}
                 className="w-[90%] xs:w-[75%] md:w-full min-w-0 object-contain mx-auto max-h-[550px]"
+                alt={item!.title}
               />
               <hr className="mt-5" />
               <p className="text-lg xs:text-xl">{descriptionTitle}</p>
-              <p className="text-md xs:text-lg text-gray-extra-light whitespace-pre-line">
+              <p className="text-md xs:text-lg text-gray-light whitespace-pre-line">
                 {item!.description}
               </p>
             </div>
@@ -74,6 +75,7 @@ const ItemPage = () => {
                   className="px-1 py-3 w-full font-semibold"
                   onClick={goSuccess}
                   disabled={redirecting}
+                  aria-label={"Buy"}
                 >
                   {redirecting ? buyingButtonText : buyButtonText}
                 </Button>

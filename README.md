@@ -1,6 +1,8 @@
 # MELI - Challenge
 
-This project is a web application developed using modern technologies. The frontend is built with React.js, Next.js, TypeScript, and Jest, while the backend is powered by Node.js and Express.
+This project is a web application developed using modern technologies. The frontend is built with React.js, Next.js, TypeScript, and Jest, while the backend is powered by Node.js and Express. The application has been optimized for high performance, achieving a 100% score in Lighthouse
+
+![Lighthouse](./images/lighthouse.png)
 
 # Observations
 
@@ -62,9 +64,9 @@ Without tests... :sweat_smile:
 
 # Requirements
 
-Before starting, ensure you meet one of the following paths to run the application (Note: It's worth noting that both environments are in development mode. As a result, there may be some initial delay when navigating between pages for the first time, as Next.js builds each page individually in real-time.):
+Before starting, ensure you meet one of the following paths to run the application:
 
-## Option 1: Using Docker (Recommended)
+## Option 1: Using Docker (Recommended - Prod)
 
 1. Ensure Docker is installed on your system. If you don't have Docker, you can download and install it from the following link: [Docker](https://www.docker.com/get-started).
 
@@ -80,12 +82,12 @@ cd meli-challenge
 4. Run Docker Compose to build and start the development environment:
 
 ```bash
-docker-compose up --build
+docker-compose build --no-cache && docker-compose up
 ```
 
 Once the container is running, you can access the application at http://localhost:4000 and the API at http://localhost:4001. (Note that these URLs are based on the configuration provided in the **.env.example** file. If you have used different settings or values for your **.env** file, the ports or URLs may vary accordingly.)
 
-## Option 2: Without Docker
+## Option 2: Without Docker (Dev)
 
 1. Ensure Node.js version 20.15.1 or higher is installed on your system. You can download Node.js from the following link: [Node.js](https://nodejs.org/es)
 

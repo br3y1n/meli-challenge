@@ -8,13 +8,13 @@ const config: Config = {
       colors: {
         primary: "#ffe600",
         "gray-extra-light": "#c0c0c0",
-        "gray-light": "#747373",
-        "gray-dark": "#424242",
-        "blue-light": "#3483fa",
-        "blue-dark": "#2e67bd",
+        "gray-light": "#6b6b6b",
+        "gray-dark": "#363636",
+        "blue-light": "#0F6DFA",
+        "blue-dark": "#054BB3",
         "blue-pale-light": "#e3edfb",
         "blue-pale-dark": "#d2dff0",
-        green: "#00A650",
+        green: "#00853E",
       },
       fontSize: {
         xs: "14px",

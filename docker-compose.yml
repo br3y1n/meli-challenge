@@ -16,9 +16,10 @@ services:
     build:
       context: ./packages/client
       dockerfile: Dockerfile
+      args:
+        - PORT=$FRONT_PORT
+        - NEXT_PUBLIC_MY_API=http://localhost:$BACK_PORT/api
     env_file: .env
     ports:
       - $FRONT_PORT:$FRONT_PORT
-    environment:
-      - PORT=$FRONT_PORT
-      - NEXT_PUBLIC_MY_API=http://localhost:$BACK_PORT/api
+   

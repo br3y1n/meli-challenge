@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const title = "Welcome to my Meli Challenge!";
 
 const description =
@@ -8,12 +10,14 @@ const instruction = '"Use the search box above to get started"';
 const HomePage = () => (
   <div className="w-full flex flex-col justify-center items-center gap-2">
     <h1 className="font-bold text-xl md:text-2xl text-center">{title}</h1>
-    <img
-      src="./images/brayayin.webp"
+    <Image
+      src="/images/brayayin.webp"
       alt="El Brayayin"
       className="w-[80%] md:w-full max-w-[450px] h-auto"
+      width={501}
+      height={498}
     />
-    <p className="text-center text-md md:text-lg max-w-[700px] text-gray-dark">
+    <p className="text-center text-md md:text-lg max-w-[700px] text-gray-light">
       {description}
     </p>
     <p className="text-center text-sm md:text-md italic font-bold">

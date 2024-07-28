@@ -78,6 +78,7 @@ const WrapperItemsPage = () => {
                 <img
                   src={image}
                   className="object-contain h-[160px] w-[160px]"
+                  alt={title}
                 />
 
                 <div className="flex flex-col gap-3 w-full">

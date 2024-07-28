@@ -1,5 +1,6 @@
 "use client";
 import { Button, ButtonVariantEnum } from "@components/Button";
+import Image from "next/image";
 import { ChangeEventHandler, KeyboardEventHandler, Suspense } from "react";
 import { IoIosSearch } from "react-icons/io";
 import { useHeaderState } from "./state";
@@ -37,8 +38,18 @@ const MainComponent = ({
 }) => (
   <header className="bg-primary h-[100px] md:h-[60px] shrink-0">
     <div className="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-10 w-full py-2 px-5 h-full max-w-screen-lg mx-auto">
-      <Button onClick={goHome}>
-        <img src="/images/logo.png" className="h-full w-auto max-h-[34px]" />
+      <Button
+        onClick={goHome}
+        className="shrink-0 h-full max-h-[34px]"
+        aria-label="go home"
+      >
+        <Image
+          src="/images/logo.png"
+          className="h-full w-auto"
+          alt="Meli logo"
+          width={134}
+          height={34}
+        />
       </Button>
 
       <div className="h-[40px] w-full max-w-screen-lg relative">
@@ -54,6 +65,7 @@ const MainComponent = ({
           variant={ButtonVariantEnum.DEFAULT}
           className="absolute top-0 right-0 h-full flex items-center justify-center w-[46px] before:h-[50%] before:w-[1px] before:bg-gray-extra-light before:absolute before:right-[45px]"
           onClick={onSearch}
+          aria-label="Search items"
         >
           <IoIosSearch className="h-[20px] w-auto" />
         </Button>
