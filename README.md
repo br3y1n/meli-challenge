@@ -1,6 +1,6 @@
 # MELI - Challenge
 
-This project is a web application developed using modern technologies. The frontend is built with React.js, Next.js, TypeScript, and Jest, while the backend is powered by Node.js and Express. The application has been optimized for high performance, achieving a 100% score in Lighthouse. Additionally, it includes unit tests that cover 100% of the codebase (Frontend).
+This project is a web application developed using modern technologies. The frontend is built with React.js, Next.js, TypeScript, and Jest, while the backend is powered by Node.js and Express. The application has been optimized for high performance, achieving a 100% score in Lighthouse. Additionally, it includes unit tests that cover 100% of the codebase.
 
 - ## Lighthouse
 
@@ -9,6 +9,10 @@ This project is a web application developed using modern technologies. The front
 - ## Frontend
 
 ![Frontend](./images/frontend_coverage.png)
+
+- ### Backend
+
+![Backend](./images/backend_coverage.png)
 
 # Observations
 
@@ -71,16 +75,6 @@ Alert views have been added for special cases, such as when accessing non-existe
 
 ![Not found page](./images/not_found_page.png)
 
-
-## 7. Technical debt - coverage
-
-Although the project is configured to run unit tests, due to time constraints, not all tests were completed (Backend).
-
-- ### Backend
-
-Without tests... :sweat_smile:
-
-![Backend](./images/backend_coverage.png)
 
 # Requirements
 
