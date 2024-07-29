@@ -14,7 +14,7 @@ const Select = <T,>(props: ISelectProps<T>) => {
   const {
     options,
     onChange,
-    size = SelectSizeEnum.MD,
+    size = SelectSizeEnum.SM,
     position = SelectPostionEnum.BOTTOM,
   } = props;
   const { closeSelect, toggleOpen, open, optionSelected } =

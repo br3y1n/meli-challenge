@@ -5,7 +5,7 @@ describe("Breadcrumb tests:", () => {
   it("When it's rendered with items prop empty, then no achor is rendered", () => {
     const { container } = render(<Breadcrumb items={[]} />);
 
-    const anchors = container.querySelectorAll("a");
+    const anchors = container.querySelectorAll("button");
 
     expect(anchors).toHaveLength(0);
   });
@@ -13,7 +13,7 @@ describe("Breadcrumb tests:", () => {
   it("When it's rendered with 1 item, then 1 anchor is renderd and no divider", () => {
     const { container } = render(<Breadcrumb items={[{ label: "label 1" }]} />);
 
-    const anchors = container.querySelectorAll("a");
+    const anchors = container.querySelectorAll("button");
     const divider = container.querySelectorAll("svg");
 
     expect(anchors).toHaveLength(1);
@@ -28,7 +28,7 @@ describe("Breadcrumb tests:", () => {
     ];
     const { container } = render(<Breadcrumb items={items} />);
 
-    const anchors = container.querySelectorAll("a");
+    const anchors = container.querySelectorAll("button");
     const divider = container.querySelectorAll("svg");
 
     expect(anchors).toHaveLength(items.length);
@@ -41,7 +41,7 @@ describe("Breadcrumb tests:", () => {
       <Breadcrumb items={[{ label: "label 1", onClick }]} />
     );
 
-    const anchor = container.querySelector("a");
+    const anchor = container.querySelector("button");
 
     expect(onClick).toHaveBeenCalledTimes(0);
 

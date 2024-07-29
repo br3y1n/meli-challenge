@@ -19,7 +19,10 @@ const config: Config = {
   },
   testEnvironment: "jest-environment-jsdom",
   collectCoverageFrom: ["./src/**/*.{js,jsx,ts,tsx}"],
-  setupFilesAfterEnv: ["@testing-library/jest-dom"],
+  setupFilesAfterEnv: [
+    "@testing-library/jest-dom",
+    "<rootDir>/__tests__/test.setup.ts",
+  ],
   transform: {
     "^.+\\.tsx?$": [
       "ts-jest",

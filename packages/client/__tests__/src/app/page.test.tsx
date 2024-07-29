@@ -7,11 +7,11 @@ describe("Home tests:", () => {
 
     const titleTxt = screen.getByRole("heading", {
       level: 1,
-      name: /welcome/i,
+      name: /Bienvenidos/i,
     });
 
     const image = screen.getByAltText("El Brayayin");
-    const descriptionTxt = screen.getByText(/Hello everyone/i);
+    const descriptionTxt = screen.getByText(/Hola a todos/i);
 
     expect(titleTxt).toBeInTheDocument();
     expect(image).toBeInTheDocument();

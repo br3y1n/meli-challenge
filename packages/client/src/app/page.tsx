@@ -1,11 +1,11 @@
 import Image from "next/image";
 
-const title = "Welcome to my Meli Challenge!";
+const title = "Bienvenidos a mi Meli Challenge";
 
 const description =
-  "Hello everyone! My name is Brayan Arango, and I am delighted to present to you my development for the Meli challenge. On this occasion, I am aspiring to the role of a Frontend Developer, and I am thrilled to share with you what I have created.";
+  "Hola a todos! Mi nombre es Brayan Arango, y estoy encantado de presentarles mi desarrollo para el Meli Challenge. En esta ocasión, aspiro al rol de Desarrollador Frontend y estoy emocionado de compartir con ustedes lo que he creado.";
 
-const instruction = '"Use the search box above to get started"';
+const instruction = '"Utilice el cuadro de búsqueda de arriba para comenzar"';
 
 const HomePage = () => (
   <div className="w-full flex flex-col justify-center items-center gap-2">

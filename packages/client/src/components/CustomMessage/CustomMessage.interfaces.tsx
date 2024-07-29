@@ -2,7 +2,8 @@ import { ReactNode } from "react";
 
 interface ICustomMessage {
   text: string;
-  icon: ReactNode;
+  description?: string;
+  image: ReactNode;
 }
 
 export type { ICustomMessage };

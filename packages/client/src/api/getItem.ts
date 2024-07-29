@@ -28,13 +28,7 @@ const useItem = ({ id, config = {} }: UseItemParams) =>
     ...config,
     enabled: !!id,
     queryKey: queryKeys.item(id!),
-    queryFn: () => {
-      if (!id) {
-        throw new Error("Item id is required");
-      }
-
-      return getItem({ id });
-    },
+    queryFn: () => getItem({ id: id! }),
   });
 
 export { useItem };

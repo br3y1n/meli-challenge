@@ -1,4 +1,9 @@
-import { ISelectProps, Select } from "@components/Select";
+import {
+  ISelectProps,
+  Select,
+  SelectPostionEnum,
+  SelectSizeEnum,
+} from "@components/Select";
 import { render, screen, userEvent } from "@test-utils";
 
 describe("Select tests:", () => {
@@ -87,5 +92,41 @@ describe("Select tests:", () => {
     const option2 = screen.getByText("Valor 2");
 
     expect(option2).toBeInTheDocument();
+  });
+
+  const positionCases: [SelectPostionEnum, string][] = [
+    [SelectPostionEnum.BOTTOM, "top-full"],
+    [SelectPostionEnum.TOP, "bottom-full"],
+  ];
+
+  positionCases.forEach(([position, expected]) => {
+    it(`When it's rendered with position '${position}', then ul tag will have the class '${expected}'`, async () => {
+      const { container } = render(
+        <Select options={options} value={1} position={position} />
+      );
+
+      const select = screen.getByText("Valor 1");
+
+      await userEvent.click(select);
+
+      const list = container.querySelector("ul");
+
+      expect(list).toHaveClass(expected);
+    });
+  });
+
+  const sizeCases: [SelectSizeEnum, string][] = [
+    [SelectSizeEnum.MD, "text-md"],
+    [SelectSizeEnum.SM, "text-sm"],
+  ];
+
+  sizeCases.forEach(([size, expected]) => {
+    it(`When it's rendered with size '${size}', then ul tag will have the class '${expected}'`, () => {
+      render(<Select options={options} value={1} size={size} />);
+
+      const select = screen.getByText("Valor 1");
+
+      expect(select).toHaveClass(expected);
+    });
   });
 });

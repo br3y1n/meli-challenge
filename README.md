@@ -1,8 +1,14 @@
 # MELI - Challenge
 
-This project is a web application developed using modern technologies. The frontend is built with React.js, Next.js, TypeScript, and Jest, while the backend is powered by Node.js and Express. The application has been optimized for high performance, achieving a 100% score in Lighthouse
+This project is a web application developed using modern technologies. The frontend is built with React.js, Next.js, TypeScript, and Jest, while the backend is powered by Node.js and Express. The application has been optimized for high performance, achieving a 100% score in Lighthouse. Additionally, it includes unit tests that cover 100% of the codebase (Frontend).
+
+- ## Lighthouse
 
 ![Lighthouse](./images/lighthouse.png)
+
+- ## Frontend
+
+![Frontend](./images/frontend_coverage.png)
 
 # Observations
 
@@ -48,13 +54,27 @@ The sold_quantity field is not available in the Mercado Libre API. Although the 
 
 ![sold_quantity not available](./images/sold_quantity.png)
 
-## 5. Technical debt - coverage
+## 5. Change colors
 
-Although the project is configured to run unit tests, due to time constraints, not all tests were completed, especially those for the backend.
+Some colors have been slightly adjusted from Mercado Libre's main page to meet accessibility standards. For example, changes include the breadcrumb colors, the "Free Shipping" label, and others.
 
-- ### Frontend
+## 6. Alert views
 
-![Frontend](./images/frontend_coverage.png)
+Alert views have been added for special cases, such as when accessing non-existent pages or when the API returns errors.
+
+- ### Error page
+
+![Error page](./images/error_page.png)
+
+
+- ### Not Found page
+
+![Not found page](./images/not_found_page.png)
+
+
+## 7. Technical debt - coverage
+
+Although the project is configured to run unit tests, due to time constraints, not all tests were completed (Backend).
 
 - ### Backend
 

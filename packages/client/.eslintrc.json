@@ -16,6 +16,7 @@
   ],
   "rules": {
     "@typescript-eslint/no-explicit-any": "off",
+    "import/export": "off",
     "import/no-named-as-default": "off",
     "prettier/prettier": ["error", {}, { "usePrettierrc": true }],
     "no-undef": "off",

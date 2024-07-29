@@ -1,6 +1,6 @@
 enum SelectSizeEnum {
+  SM = "sm",
   MD = "md",
-  LG = "lg",
 }
 
 enum SelectPostionEnum {

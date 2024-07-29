@@ -113,7 +113,7 @@ const WrapperItemsPage = () => {
                   options={limitOptions}
                   value={value}
                   position={SelectPostionEnum.TOP}
-                  size={SelectSizeEnum.LG}
+                  size={SelectSizeEnum.MD}
                   onChange={(newValue) => {
                     setValue("currentPage", 1);
                     onChange(newValue);

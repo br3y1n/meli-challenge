@@ -1,5 +1,5 @@
 interface IBreadcrumbProps {
-  items: { label: string; onClick?: () => void; ariaLabel: string }[];
+  items: { label: string; onClick?: () => void; ariaLabel?: string }[];
 }
 
 export type { IBreadcrumbProps };

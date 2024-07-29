@@ -67,7 +67,7 @@ const ItemPage = () => {
                 </div>
 
                 <p className="text-green text-md font-semibold mb-10 mt-2">
-                  {item?.freeShipping && texts.free}
+                  {item!.freeShipping && texts.free}
                 </p>
 
                 <Button
@@ -84,7 +84,7 @@ const ItemPage = () => {
           </div>
         </>
       ) : (
-        <></>
+        <ErrorMessage />
       )}
     </>
   );
